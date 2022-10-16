@@ -12,6 +12,9 @@ module.exports = {
    devServer: {
       port: 4200
    },
+   stats: {
+      children: true,
+   },
    mode,
    target,
    devtool,

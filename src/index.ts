@@ -1,12 +1,8 @@
-import "./styles/style.scss";
-import Model from './MVC/Model';
-import View from './MVC/View';
-import Controller from './MVC/Controller';
-import * as PIXI from '../node_modules/pixi.js';
+import Game from './MVC/Model/Game'
+import Controller from './MVC/Controller/Controller'
+import './styles/main.scss'
 
-const App = new Controller(new Model(), new View());
-export default App;
-window.PIXI = PIXI;
-window.App = App;
-
-App.init();
+//init game model
+const game = new Game();
+//init controller
+const controller = new Controller(game);
