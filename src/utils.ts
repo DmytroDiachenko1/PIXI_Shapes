@@ -1,4 +1,4 @@
-function getRandomIntInRange(min, max) {
+function getRandomIntInRange(min: number, max: number) {
    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -7,6 +7,6 @@ function getRandomColor() {
    return Math.floor(Math.random() * MAX);
 }
 
-function getRandomInRange(min, max) {
+function getRandomInRange(min: number, max: number) {
    return Math.random() * (max - min) + min;
 }

@@ -1,69 +1,63 @@
-interface Game {
-
-}
+import Game from "../Model/Game";
+import View from "../View/View";
 
 export default class Controller {
-   constructor() {
+   game: Game;
+   view: View;
 
+   constructor(game: Game) {
+      this.game = game;
+      this.view = new View(this, game);
+      this.init();
    }
 
 
-function Controller(game) {
-   this.game = game;
-   this.view = new View(this, game);
-   this.init();
-}
+   init(): void {
+      this.view.initialize();
 
-init() {
-   let self = this;
-   self.view.initialize();
+      this.view.app.stage.on('click', (e) => {
+         this.game.instantiateShape(e.data.global);
+      });
 
-   self.view.app.stage.on('click', function (e) {
-      self.game.instantiateShape(e.data.global);
-   });
+      this.addButtonListeners();
+   }
 
-   this.addButtonListeners();
-}
+   addButtonListeners(): void {
 
-addButtonListeners() {
-   let self = this;
+      // Gravity controls
+      let butttonGravityInc = document.querySelector('.gravity-value-controls button.inc');
+      let butttonGravityDec = document.querySelector('.gravity-value-controls button.dec');
 
-   // Gravity controls
-   let butttonGravityInc = document.querySelector('.gravity-value-controls button.inc');
-   let butttonGravityDec = document.querySelector('.gravity-value-controls button.dec');
+      butttonGravityInc!.addEventListener('click', (e) => {
+         e.preventDefault();
+         this.game.incGravity();
+      });
+      butttonGravityDec!.addEventListener('click', (e) => {
+         e.preventDefault();
+         this.game.decGravity();
+      });
 
-   butttonGravityInc.addEventListener('click', function (e) {
-      e.preventDefault();
-      self.game.incGravity();
-   });
-   butttonGravityDec.addEventListener('click', function (e) {
-      e.preventDefault();
-      self.game.decGravity();
-   });
+      // Shape spawning speed controls
+      let butttonShapeSpawnSpeedInc = document.querySelector('.shape-spawn-speed-controls button.inc');
+      let butttonShapeSpawnSpeedDec = document.querySelector('.shape-spawn-speed-controls button.dec');
 
-   // Shape spawning speed controls
-   let butttonShapeSpawnSpeedInc = document.querySelector('.shape-spawn-speed-controls button.inc');
-   let butttonShapeSpawnSpeedDec = document.querySelector('.shape-spawn-speed-controls button.dec');
-
-   butttonShapeSpawnSpeedInc.addEventListener('click', function (e) {
-      e.preventDefault();
-      self.game.incShapesSpawningSpeed();
-   });
-   butttonShapeSpawnSpeedDec.addEventListener('click', function (e) {
-      e.preventDefault();
-      self.game.decShapesSpawningSpeed();
-   });
-}
-
-registerNewShape(shape) {
-   let self = this;
-
-   if (shape) {
-      shape.on('click', function (e) {
-         self.game.removeShape(shape);
+      butttonShapeSpawnSpeedInc!.addEventListener('click', (e) => {
+         e.preventDefault();
+         this.game.incShapesSpawningSpeed();
+      });
+      butttonShapeSpawnSpeedDec!.addEventListener('click', (e) => {
+         e.preventDefault();
+         this.game.decShapesSpawningSpeed();
       });
    }
-}
 
-window.Controller = Controller;
+   registerNewShape(shape): void {
+
+      if (shape) {
+         shape.on('click', (e) => {
+            this.game.removeShape(shape);
+         });
+      }
+   }
+
 }
