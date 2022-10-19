@@ -1,5 +1,5 @@
 import Game from "../Model/Game";
-import View from "../View/View";
+import View from "../View";
 
 export default class Controller {
    game: Game;

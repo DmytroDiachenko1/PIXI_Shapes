@@ -31,7 +31,7 @@ export default class Game {
       this.calcShapesNumber();
    };
 
-   registerWorldy(world) {
+   registerWorld(world) {
       this.world = world;
       this.init();
    };
